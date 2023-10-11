@@ -25,12 +25,18 @@ Complex Complex::operator + (Complex b)
 		Temp.Re = this->Re + b.Re;
 		return Temp;
 	}
+Complex Complex::operator = (Complex b)
+{
+	Complex Temp;
+	Temp.Im = this->Im + b.Im;
+	Temp.Re = this->Re + b.Re;
+	return Temp;
+}
 Complex Complex::operator - (Complex b)
 	{
-		Complex Temp;
-		Temp.Im = this->Im - b.Im;
-		Temp.Re = this->Re - b.Re;
-		return Temp;
+		this->Im = b.Im;
+		this->Re = b.Re;
+		return *this;
 	}
 Complex Complex::operator * (Complex b)
 	{
@@ -39,6 +45,14 @@ Complex Complex::operator * (Complex b)
 		Temp.Re = this->Im * b.Re + this->Re * b.Im;
 		return Temp;
 	}
+
+Complex Complex::operator * (int num)
+{
+	Complex Temp;
+	Temp.Im = this->Im * num;
+	Temp.Re = this->Im * num;
+	return Temp;
+}
 Complex Complex::operator / (Complex b)
 	{
 		Complex Temp;
@@ -49,5 +63,5 @@ Complex Complex::operator / (Complex b)
 	}
 void Complex::print()
 	{
-		cout << Im << " + i * " << Re << endl;
+		cout << Im << " + i * " << Re;
 	}

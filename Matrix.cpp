@@ -1,45 +1,23 @@
 #include <iostream>
 #include "Matrix.h"
+#include "ComplexNumbers.h"
+#include <iomanip>
 
 using namespace std;
-	Matrix::Matrix(int minX, int maxX, int minY, int maxY)
+	Matrix::Matrix(int sX, int sY)
 	{
-		sizeX = maxX-minX+1;
-		sizeY = maxY-minY+1;
-		matrix = new int[sizeX * sizeY];
-		length = sizeX * sizeY;
-		capacity = sizeX * sizeY;
+		sizeX = sX;
+		sizeY = sY;
+		matrix = new Complex[sizeX * sizeY];
 	}
-	int Matrix::minXIndex() const { return 0; }
-	int Matrix::maxXIndex() const { return sizeX - 1; }
-	int Matrix::minYIndex() const { return 0; }
-	int Matrix::maxYIndex() const { return sizeY - 1; }
 	Matrix::Matrix()
 	{
-		matrix = new int[20];
+		matrix = new Complex[20];
 		sizeX = sizeY = 0;
-		length = 0;
-		capacity = 20;
-	}
-	void Matrix::AddElement(int el)
-	{
-		if (this->length >= this->capacity)
-		{
-			cout << length << endl;
-			int* temp = new int[sizeX * sizeY + 20];
-			memcpy(temp, matrix, length * sizeof(int));
-			delete[] matrix;
-			matrix = temp;
-			capacity += 20;
-			length += 1;
-			sizeX += 1;
-		}
-		*(matrix+length-1) = el;
-		cout << *(matrix + length) << endl << endl;
 	}
 	Matrix Matrix::operator + (Matrix b)
 	{
-		Matrix Temp(minXIndex(), maxXIndex(), minYIndex(), maxYIndex());
+		Matrix Temp(sizeX, sizeY);
 		for (int i = 0; i < sizeX; i++)
 		{
 			for (int j = 0; j < sizeY; j++)
@@ -51,7 +29,7 @@ using namespace std;
 	}
 	Matrix Matrix::operator - (Matrix b)
 	{
-		Matrix Temp(minXIndex(), maxXIndex(), minYIndex(), maxYIndex());
+		Matrix Temp(sizeX, sizeY);
 		for (int i = 0; i < sizeX; i++)
 		{
 			for (int j = 0; j < sizeY; j++)
@@ -61,16 +39,48 @@ using namespace std;
 		}
 		return Temp;
 	}
-	void Matrix::SetMatrixRand(int range)
+	Matrix Matrix::operator * (int num)
+	{
+		Matrix Temp(sizeX, sizeY);
+		for (int i = 0; i < sizeX; i++)
+		{
+			for (int j = 0; j < sizeY; j++)
+			{
+				*(Temp.matrix + j + i * sizeY) = *(this->matrix + j + i * this->sizeY) * num;
+			}
+		}
+		return Temp;
+	}
+	void Matrix::SetMatrixRand(int size)
 	{
 		for (int i = 0; i < sizeX; i++)
 		{
 			for (int j = 0; j < sizeY; j++)
 			{
-				*(matrix + j + i * sizeY) = rand()%range;
+				if (i == 0 || j == 0)
+				{
+					*(matrix + j + i * sizeY) = Complex(1,0);
+				}
+				else
+				{
+					*(matrix + j + i * sizeY) = Complex(2,2);
+				}
 			}
 		}
 	}
+	/*void Matrix::Transpose()
+	{
+		Complex t;
+		for (int i = 0; i < sizeX; i++)
+		{
+			for (int j = 0; j < sizeY; j++)
+			{
+				t = *(matrix + j + i * sizeY);
+				*(matrix + j + i * sizeY) = *(matrix + i + j * sizeY);
+				*(matrix + i + j * sizeY) = t;
+			}
+		}
+	}*/
 	void Matrix::SetMatrix()
 	{
 		for (int i = 0; i < sizeX; i++)
@@ -78,33 +88,34 @@ using namespace std;
 			for (int j = 0; j < sizeY; j++)
 			{
 				cout << "Введите " << j+1 << "-й элемент для " << i+1 << "-й строки: ";
-				cin >> *(matrix + j + i * sizeY);
+				*(matrix + j + i * sizeY)->print();
 			}
 		}
 	}
 	int* Matrix::GetMatrix()
 	{
-		int* temp;
-		temp = matrix;
+		int* temp = nullptr;
+		memcpy(temp, matrix, sizeX * sizeY * sizeof(int));
 		return temp;
 	}
-	int Matrix::SumStr(int strNum)
+	Complex Matrix::SumStr(int strNum)
 	{
-		if (strNum > sizeX || strNum <= 0) return -1;
-		int sum = 0;
+		if (strNum > sizeX || strNum <= 0) return Complex(-1,0);
+		Complex sum = Complex();
 		for (int j = 0; j < sizeY; j++)
 		{
-			sum += *(matrix + strNum-1 + j*sizeX);
+			sum = sum +  *(matrix + strNum-1 + j*sizeX);
 		}
 		return sum;
 	}
-	int Matrix::SumStb(int stbNum)
+	Complex Matrix::SumStb(int stbNum)
 	{
-		if (stbNum <= 0 || stbNum > sizeY) return -1;
-		int sum = 0;
+		if (stbNum <= 0 || stbNum > sizeY) return Complex(-1, 0);
+		Complex sum = Complex();
 		for (int i = 0; i < sizeX; i++)
 		{
-			sum += *(matrix + i + (stbNum - 1) * sizeX);
+			sum = sum + *(matrix + i + (stbNum - 1) * sizeX);
+			
 		}
 		return sum;
 	}
@@ -114,7 +125,14 @@ using namespace std;
 		{
 			for (int j = 0; j < sizeY; j++)
 			{
-				cout << *(matrix + j + i * sizeY) << ' ';
+				cout << setw(4) << fixed;
+				*(matrix + j + i * sizeY)->print();
+				cout<< " | ";
+			}
+			cout << endl;
+			for (int j = 0; j < sizeY-1; j++)
+			{
+				cout << setw(4) << fixed << "- - - - ";
 			}
 			cout << endl;
 		}

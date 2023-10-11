@@ -1,27 +1,22 @@
 #include <iostream>
-
+#include "ComplexNumbers.h"
 using namespace std;
 class Matrix
 {
 private:
 	int sizeX, sizeY;
-	int* matrix;
-	int length;
-	int capacity;
+	Complex* matrix;
 public:
-	Matrix(int minX, int maxX, int minY, int maxY);
-	int minXIndex() const;
-	int maxXIndex() const;
-	int minYIndex() const;
-	int maxYIndex() const;
+	Matrix(int sX, int sY);
 	Matrix();
-	void AddElement(int el);
 	Matrix operator + (Matrix b);
 	Matrix operator - (Matrix b);
-	void SetMatrixRand(int range);
+	Matrix operator * (int num);
+	void SetMatrixRand(int size);
 	void SetMatrix();
+	void Transpose();
 	int* GetMatrix();
-	int SumStr(int strNum);
-	int SumStb(int stbNum);
+	Complex SumStr(int strNum);
+	Complex SumStb(int stbNum);
 	void print();
 };

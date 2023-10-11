@@ -14,5 +14,7 @@ public:
 	Complex operator - (Complex b);
 	Complex operator * (Complex b);
 	Complex operator / (Complex b);
+	Complex operator = (Complex b);
+	Complex operator * (int num);
 	void print();
 };
