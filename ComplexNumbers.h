@@ -1,20 +1,26 @@
 #include <iostream>
 using namespace std;
 
-class Complex
+class ComplexNum
 {
 private:
 	double Re;
 	double Im;
 public:
-	Complex();
-	Complex(double aIm, double aRe);
-	void SetComplex(double aIm, double aRe);
-	Complex operator + (Complex b);
-	Complex operator - (Complex b);
-	Complex operator * (Complex b);
-	Complex operator / (Complex b);
-	Complex operator = (Complex b);
-	Complex operator * (int num);
+	ComplexNum();
+	ComplexNum(double aIm, double aRe);
+	void SetComplexNum(double aIm, double aRe);
+	void SetComplexNum();
+	ComplexNum ÑonjugateNumber();
+	ComplexNum operator + (ComplexNum b);
+	bool operator == (ComplexNum b);
+	ComplexNum operator - (ComplexNum b);
+	ComplexNum operator * (ComplexNum b);
+	ComplexNum operator / (ComplexNum b);
+	ComplexNum operator / (int num);
+	ComplexNum operator = (ComplexNum b);
+	ComplexNum operator * (int num);
+	double GetRe();
+	double GetIm();
 	void print();
 };

@@ -1,20 +1,57 @@
 #include <iostream>
 #include "Matrix.h"
-#include "ComplexNumbers.h"
 #include <iomanip>
+#include <math.h>
 
 using namespace std;
-	Matrix::Matrix(int sX, int sY)
+
+double pi = atan(1.0)*4;
+
+Matrix::Matrix(int sX, int sY)
+{
+	sizeX = sX;
+	sizeY = sY;
+	matrix = new ComplexNum[sizeX * sizeY]();
+}
+Matrix::Matrix()
+{
+	matrix = new ComplexNum[0]();
+	sizeX = sizeY = 0;
+}
+Matrix::Matrix(int n)
+{
+	sizeX = sizeY = n;
+	matrix = new ComplexNum[sizeX * sizeY]();
+	//ComplexNum* bn = new ComplexNum[n]();
+	//cout << "bn = ";
+	//for (int i = 0; i < n; i++)
+	//{
+	//	bn[i].SetComplexNum(cos(-2 * pi / n * (i + 1)), sin(-2 * pi / n * (i + 1)));
+	//	bn[i].print();
+	//}
+	for (int i = 0; i < sizeX; i++)
 	{
-		sizeX = sX;
-		sizeY = sY;
-		matrix = new Complex[sizeX * sizeY];
+		for (int j = 0; j < sizeY; j++)
+		{		
+			double a = (-2.0) * pi * j * i / n;
+			matrix[i * sizeY + j].SetComplexNum(cos(a), sin(a));
+		}
 	}
-	Matrix::Matrix()
+}
+Matrix::Matrix(int* nums, int sizeX, int sizeY)
+{
+	this->sizeX = sizeX;
+	this->sizeY = sizeY;
+	matrix = new ComplexNum[sizeX * sizeY]();
+	for (int i = 0; i < sizeX; i++)
 	{
-		matrix = new Complex[20];
-		sizeX = sizeY = 0;
+		for (int j = 0; j < sizeY-1; j++)
+		{
+			matrix[j + i * sizeY].SetComplexNum(*(nums+j), 0);
+		}
 	}
+}
+
 	Matrix Matrix::operator + (Matrix b)
 	{
 		Matrix Temp(sizeX, sizeY);
@@ -46,10 +83,57 @@ using namespace std;
 		{
 			for (int j = 0; j < sizeY; j++)
 			{
-				*(Temp.matrix + j + i * sizeY) = *(this->matrix + j + i * this->sizeY) * num;
+				Temp.matrix[j + i * sizeY] = matrix[j + i * sizeY] * num;
 			}
 		}
 		return Temp;
+	}
+	Matrix Matrix::operator * (Matrix b)
+	{
+		if (sizeY != b.sizeX) {
+			cout << "ERROR: Size of matrixs isnt equal" << endl;
+			return Matrix();
+		}
+		Matrix result(sizeX, b.sizeY);
+		for (int i = 0; i < sizeX; i++)
+		{
+			for (int j = 0; j < b.sizeY; j++) 
+			{
+				ComplexNum sum = ComplexNum();
+				for (int k = 0; k < sizeY; k++) 
+				{
+					sum = sum + matrix[k + i * sizeY] * b.matrix[j + k * b.sizeY];
+				}
+				result.matrix[j + i * b.sizeY] = sum;
+			}
+		}
+		return result;
+	}
+	Matrix Matrix::operator / (int num)
+	{
+		Matrix Temp(sizeX, sizeY);
+		for (int i = 0; i < sizeX; i++)
+		{
+			for (int j = 0; j < sizeY; j++)
+			{
+				Temp.matrix[j + i * sizeY] = matrix[j + i * sizeY] / num;
+			}
+		}
+		return Temp;
+	}
+	void Matrix::ÑonjugateNumber()
+	{
+		for (int i = 0; i < sizeX; i++)
+		{
+			for (int j = 0; j < sizeY; j++)
+			{
+				matrix[j + i * sizeY] = matrix[j + i * sizeY].ÑonjugateNumber();
+			}
+		}
+	}
+	double Matrix::GetMatrixNum(int num)
+	{
+		return matrix[num].GetIm();
 	}
 	void Matrix::SetMatrixRand(int size)
 	{
@@ -57,30 +141,26 @@ using namespace std;
 		{
 			for (int j = 0; j < sizeY; j++)
 			{
-				if (i == 0 || j == 0)
-				{
-					*(matrix + j + i * sizeY) = Complex(1,0);
-				}
-				else
-				{
-					*(matrix + j + i * sizeY) = Complex(2,2);
-				}
+				matrix[j + i * sizeY].SetComplexNum(rand()%10, rand()%10);
 			}
 		}
 	}
-	/*void Matrix::Transpose()
+	void Matrix::Transpose()
 	{
-		Complex t;
+		Matrix transposed(sizeY, sizeX);
+
 		for (int i = 0; i < sizeX; i++)
 		{
 			for (int j = 0; j < sizeY; j++)
 			{
-				t = *(matrix + j + i * sizeY);
-				*(matrix + j + i * sizeY) = *(matrix + i + j * sizeY);
-				*(matrix + i + j * sizeY) = t;
+				transposed.matrix[j + i * sizeY] = matrix[i + j * sizeY];
 			}
 		}
-	}*/
+		int tempSize = sizeX;
+		sizeX = sizeY;
+		sizeY = tempSize;
+		memcpy(matrix, transposed.matrix, sizeof(matrix));
+	}
 	void Matrix::SetMatrix()
 	{
 		for (int i = 0; i < sizeX; i++)
@@ -88,7 +168,7 @@ using namespace std;
 			for (int j = 0; j < sizeY; j++)
 			{
 				cout << "Ââåäèòå " << j+1 << "-é ýëåìåíò äëÿ " << i+1 << "-é ñòðîêè: ";
-				*(matrix + j + i * sizeY)->print();
+				matrix[j + i * sizeY].SetComplexNum();
 			}
 		}
 	}
@@ -98,41 +178,36 @@ using namespace std;
 		memcpy(temp, matrix, sizeX * sizeY * sizeof(int));
 		return temp;
 	}
-	Complex Matrix::SumStr(int strNum)
+
+	/*ComplexNum Matrix::SumStr(int strNum)
 	{
-		if (strNum > sizeX || strNum <= 0) return Complex(-1,0);
-		Complex sum = Complex();
+		if (strNum > sizeX || strNum <= 0) return ComplexNum(-1,0);
+		ComplexNum sum = ComplexNum();
 		for (int j = 0; j < sizeY; j++)
 		{
 			sum = sum +  *(matrix + strNum-1 + j*sizeX);
 		}
 		return sum;
-	}
-	Complex Matrix::SumStb(int stbNum)
+	}*/
+	/*ComplexNum Matrix::SumStb(int stbNum)
 	{
-		if (stbNum <= 0 || stbNum > sizeY) return Complex(-1, 0);
-		Complex sum = Complex();
+		if (stbNum <= 0 || stbNum > sizeY) return ComplexNum(-1, 0);
+		ComplexNum sum = ComplexNum();
 		for (int i = 0; i < sizeX; i++)
 		{
 			sum = sum + *(matrix + i + (stbNum - 1) * sizeX);
 			
 		}
 		return sum;
-	}
+	}*/
 	void Matrix::print()
 	{
 		for (int i = 0; i < sizeX; i++)
 		{
 			for (int j = 0; j < sizeY; j++)
 			{
-				cout << setw(4) << fixed;
-				*(matrix + j + i * sizeY)->print();
-				cout<< " | ";
-			}
-			cout << endl;
-			for (int j = 0; j < sizeY-1; j++)
-			{
-				cout << setw(4) << fixed << "- - - - ";
+				matrix[j + i * sizeY].print();
+				cout<< "|";
 			}
 			cout << endl;
 		}
