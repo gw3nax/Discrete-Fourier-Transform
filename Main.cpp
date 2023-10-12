@@ -10,7 +10,7 @@ void main()
 	string name;
 	cout << "Input name: ";
 	cin >> name;
-	int n = 32;
+	int n = 8;
 	int* nameCode = new int[n];
 	char alphabet[34] = "אבגדהו¸זחטיךכלםמןנסעףפץצקרשüûת‎‏ÿ";
 
