@@ -1,3 +1,4 @@
 ﻿  Main.cpp
-C:\MY\ВУЗ\3 семестр\Дискретный анализ и основы математической статистики\Discrete Fourier Transform\Main.cpp(9,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
-  Discrete Fourier Transform.vcxproj -> C:\MY\ВУЗ\3 семестр\Дискретный анализ и основы математической статистики\Discrete Fourier Transform\x64\Debug\Discrete Fourier Transform.exe
+C:\MY\ВУЗ\3 семестр\Дискретный анализ и основы математической статистики\Discrete-Fourier-Transform\Main.cpp(7,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+C:\MY\ВУЗ\3 семестр\Дискретный анализ и основы математической статистики\Discrete-Fourier-Transform\Main.cpp(20,32): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+  Discrete Fourier Transform.vcxproj -> C:\MY\ВУЗ\3 семестр\Дискретный анализ и основы математической статистики\Discrete-Fourier-Transform\x64\Debug\Discrete Fourier Transform.exe
