@@ -8,9 +8,17 @@ void main()
 	system("chcp 1251");
 	setlocale(LC_ALL, "RU-ru");
 	string name;
-	cout << "Input name: ";
+	cout << "Âגוהטעו גארף סענמךף: ";
 	cin >> name;
 	int n = 8;
+	if (name.length() <= 9)
+	{
+		n = 8;
+	}
+	else if (name.length() > 9)
+	{
+		n = name.length() / 8 * 8 + 8;
+	}
 	int* nameCode = new int[n];
 	char alphabet[34] = "אבגדהו¸זחטיךכלםמןנסעףפץצקרשüûת‎‏ÿ";
 
@@ -31,7 +39,10 @@ void main()
 
 	for (int i = 0; i < n; i++)
 	{
-		if (*(nameCode+i) <= 0) nameCode[i] = 0;
+		if (nameCode[i] < 0)
+		{
+			nameCode[i] = -1;
+		}
 	}
 	Matrix z(nameCode, 1, n);
 	cout << "Z = \n";
@@ -43,8 +54,6 @@ void main()
 	Fn.print();
 	cout << endl;
 	z.Transpose();
-	cout << endl;
-	z.print();
 	Matrix W(n, 1);
 	W= Fn * z;
 	cout << "W = \n";
