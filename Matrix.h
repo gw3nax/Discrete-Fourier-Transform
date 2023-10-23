@@ -6,6 +6,7 @@ class Matrix
 private:
 	int sizeX, sizeY;
 	ComplexNum* matrix;
+	string name;
 public:
 	Matrix(int sX, int sY);
 	Matrix();
@@ -19,10 +20,12 @@ public:
 	void ÑonjugateNumber();
 	void SetMatrixRand(int size);
 	void SetMatrix();
+	void SetName(string name);
 	void Transpose();
 	int* GetMatrix();
 	double GetMatrixNum(int num);
 	ComplexNum SumStr(int strNum);
 	ComplexNum SumStb(int stbNum);
 	void print();
+	void printFile();
 };

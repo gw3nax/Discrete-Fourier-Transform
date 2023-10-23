@@ -2,6 +2,8 @@
 #include "Matrix.h"
 #include <iomanip>
 #include <math.h>
+#include <fstream>
+
 
 using namespace std;
 
@@ -38,6 +40,10 @@ Matrix::Matrix(int n)
 		}
 	}
 }
+void Matrix::SetName(string name)
+{
+	this->name = name;
+}
 Matrix::Matrix(int* nums, int sizeX, int sizeY)
 {
 	this->sizeX = sizeX;
@@ -45,7 +51,7 @@ Matrix::Matrix(int* nums, int sizeX, int sizeY)
 	matrix = new ComplexNum[sizeX * sizeY]();
 	for (int i = 0; i < sizeX; i++)
 	{
-		for (int j = 0; j < sizeY-1; j++)
+		for (int j = 0; j < sizeY; j++)
 		{
 			matrix[j + i * sizeY].SetComplexNum(*(nums+j), 0);
 		}
@@ -178,37 +184,29 @@ Matrix::Matrix(int* nums, int sizeX, int sizeY)
 		memcpy(temp, matrix, sizeX * sizeY * sizeof(int));
 		return temp;
 	}
-
-	/*ComplexNum Matrix::SumStr(int strNum)
-	{
-		if (strNum > sizeX || strNum <= 0) return ComplexNum(-1,0);
-		ComplexNum sum = ComplexNum();
-		for (int j = 0; j < sizeY; j++)
-		{
-			sum = sum +  *(matrix + strNum-1 + j*sizeX);
-		}
-		return sum;
-	}*/
-	/*ComplexNum Matrix::SumStb(int stbNum)
-	{
-		if (stbNum <= 0 || stbNum > sizeY) return ComplexNum(-1, 0);
-		ComplexNum sum = ComplexNum();
-		for (int i = 0; i < sizeX; i++)
-		{
-			sum = sum + *(matrix + i + (stbNum - 1) * sizeX);
-			
-		}
-		return sum;
-	}*/
 	void Matrix::print()
 	{
 		for (int i = 0; i < sizeX; i++)
 		{
 			for (int j = 0; j < sizeY; j++)
 			{
+				cout << "|";
 				matrix[j + i * sizeY].print();
 				cout<< "|";
 			}
-			cout << endl;
+			cout << endl << setw(14) << fixed << "- - - - - - - " << endl;
+		}
+	}
+	void Matrix::printFile()
+	{
+		string fileName = name + ".txt";
+		ofstream file(fileName);
+		for (int i = 0; i < sizeX; i++)
+		{
+			for (int j = 0; j < sizeY; j++)
+			{
+				file << matrix[j + i * sizeY] << "|";
+			}
+			file << endl;
 		}
 	}
