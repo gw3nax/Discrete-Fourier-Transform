@@ -14,6 +14,7 @@ public:
 	ComplexNum ÑonjugateNumber();
 	ComplexNum operator + (ComplexNum b);
 	bool operator == (ComplexNum b);
+	friend ostream& operator<<(ostream& os, const ComplexNum& complex);
 	ComplexNum operator - (ComplexNum b);
 	ComplexNum operator * (ComplexNum b);
 	ComplexNum operator / (ComplexNum b);

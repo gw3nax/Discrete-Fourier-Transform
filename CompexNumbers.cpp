@@ -68,6 +68,28 @@ ComplexNum ComplexNum::operator * (ComplexNum b)
 		Temp->Re = this->Im * b.Re + this->Re * b.Im;
 		return *Temp;
 	}
+ostream& operator<<(ostream& os, const ComplexNum& complex)
+{
+	int width = 1;
+	if (abs(complex.Re) < 1e-6)
+	{
+		os << setw(11) << fixed << setprecision(width) << complex.Im;
+	}
+	else if (abs(complex.Im) < 1e-6)
+	{
+		os << setw(9) << fixed << setprecision(width) << complex.Re << "*i";
+	}
+	else if (abs(complex.Im) < 1e-6 && abs(complex.Re) < 1e-6)
+	{
+		os << setw(11) << fixed << '0';
+	}
+	else if (abs(complex.Im) > 1e-6 && abs(complex.Re) > 1e-6)
+	{
+		os << setw(4) << fixed << setprecision(width) << complex.Im << "+i*" << setw(4) << fixed << setprecision(width) << complex.Re;
+	}
+	return os;
+}
+
 
 ComplexNum ComplexNum::operator * (int num)
 {
@@ -104,19 +126,19 @@ void ComplexNum::print()
 	int width = 1;
 	if (abs(this->Re) < 1e-6)
 	{
-		cout << setw(9) << fixed << setprecision(width) << Im;
+		cout << setw(13) << fixed << setprecision(width) << Im;
 	}
 	else if (abs(this->Im) < 1e-6)
 	{
-		cout << setw(7) << fixed << setprecision(width) << Re << "*i";
+		cout << setw(11) << fixed << setprecision(width) << Re << "*i";
 	}
 	else if (abs(this->Im) < 1e-6 && abs(this->Re) < 1e-6)
 	{
-		cout << setw(9) << fixed << '0';
+		cout << setw(13) << fixed << '0';
 	}
 	else if (abs(this->Im) > 1e-6 && abs(this->Re) > 1e-6)
 	{
-		cout << setw(3) << fixed << setprecision(width) << Im << "+i*" << setw(3) << fixed << setprecision(width) << Re;
+		cout << setw(5) << fixed << setprecision(width) << Im << "+i*" << setw(5) << fixed << setprecision(width) << Re;
 	}
 }
 
