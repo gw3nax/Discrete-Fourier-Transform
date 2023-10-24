@@ -1,4 +1,4 @@
-#include <iostream>
+Ôªø#include <iostream>
 #include "Matrix.h"
 #include <string>
 using namespace std;
@@ -9,7 +9,7 @@ void main()
 	system("chcp 1251");
 	setlocale(LC_ALL, "RU-ru");
 	string name;
-	cout << "¬‚Â‰ËÚÂ ‚‡¯Û ÒÚÓÍÛ: ";
+	cout << "–í–≤–µ–¥–∏—Ç–µ –≤–∞—à—É —Å—Ç—Ä–æ–∫—É: ";
 	cin >> name;
 	int n = 8;
 	if (name.length() <= 9)
@@ -21,13 +21,13 @@ void main()
 		n = name.length() / 8 * 8 + 8;
 	}
 	int* nameCode = new int[n];
-	char alphabet[35] = "‡·‚„‰Â∏ÊÁËÈÍÎÏÌÓÔÒÚÛÙıˆ˜¯˘¸˚˙˝˛ˇ_";
+	char alphabet[35] = "–∞–±–≤–≥–¥–µ—ë–∂–∑–∏–π–∫–ª–º–Ω–æ–ø—Ä—Å—Ç—É—Ñ—Ö—Ü—á—à—â—å—ã—ä—ç—é—è_";
 
 	for (int i = 0; i < name.length(); i++)
 	{
-		if (name[i] >= '¿' && name[i] <= 'ﬂ')
+		if (name[i] >= '–ê' && name[i] <= '–Ø')
 		{
-			name[i] = name[i] - ('ﬂ' - 'ˇ');
+			name[i] = name[i] - ('–Ø' - '—è');
 		}
 		for (int j = 0; j < sizeof(alphabet)/sizeof(char); j++)
 		{
@@ -42,7 +42,7 @@ void main()
 	{
 		if (nameCode[i] < 0)
 		{
-			nameCode[i] = 33;
+			nameCode[i] = 34;
 		}
 	}
 	Matrix z(nameCode, 1, n);
@@ -67,7 +67,7 @@ void main()
 	W.printFile();
 	cout << endl;
 	Matrix Fn1 = Fn;
-	Fn1.—onjugateNumber();
+	Fn1.–°onjugateNumber();
 
 	cout << "Fn* = " << endl;
 

@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include "ComplexNumbers.h"
 #include <iomanip>
 using namespace std;
@@ -21,12 +21,12 @@ void ComplexNum::SetComplexNum(double aIm, double aRe)
 void ComplexNum::SetComplexNum()
 {
 	double a = 0, r = 0;
-	cout << "Ââåäèòå a è b äëÿ êîìïëåêñíîãî ÷èñëà: ";
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ a Ð¸ b Ð´Ð»Ñ ÐºÐ¾Ð¼Ð¿Ð»ÐµÐºÑÐ½Ð¾Ð³Ð¾ Ñ‡Ð¸ÑÐ»Ð°: ";
 	cin >> a >> r;
 	this->Im = a;
 	this->Re = r;
 }
-ComplexNum ComplexNum::ÑonjugateNumber()
+ComplexNum ComplexNum::Ð¡onjugateNumber()
 {
 	ComplexNum *Temp = new ComplexNum();
 	Temp->Im = this->Im;

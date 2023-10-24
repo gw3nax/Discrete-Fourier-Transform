@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include "ComplexNumbers.h"
 using namespace std;
 class Matrix
@@ -17,7 +17,7 @@ public:
 	Matrix operator * (int num);
 	Matrix operator * (Matrix b);
 	Matrix operator / (int num);
-	void �onjugateNumber();
+	void СonjugateNumber();
 	void SetMatrixRand(int size);
 	void SetMatrix();
 	void SetName(string name);
