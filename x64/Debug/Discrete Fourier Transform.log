@@ -1,4 +1,7 @@
-﻿  Main.cpp
+﻿  CompexNumbers.cpp
+  Main.cpp
 C:\MY\UNI\3 semestr\Дискретный анализ и основы математической статистики\Discrete-Fourier-Transform\Main.cpp(7,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
 C:\MY\UNI\3 semestr\Дискретный анализ и основы математической статистики\Discrete-Fourier-Transform\Main.cpp(21,32): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+  Matrix.cpp
+  Создание кода...
   Discrete Fourier Transform.vcxproj -> C:\MY\UNI\3 semestr\Дискретный анализ и основы математической статистики\Discrete-Fourier-Transform\x64\Debug\Discrete Fourier Transform.exe

@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include "Matrix.h"
 #include <iomanip>
 #include <math.h>
@@ -127,13 +127,13 @@ Matrix::Matrix(int* nums, int sizeX, int sizeY)
 		}
 		return Temp;
 	}
-	void Matrix::ÑonjugateNumber()
+	void Matrix::Ð¡onjugateNumber()
 	{
 		for (int i = 0; i < sizeX; i++)
 		{
 			for (int j = 0; j < sizeY; j++)
 			{
-				matrix[j + i * sizeY] = matrix[j + i * sizeY].ÑonjugateNumber();
+				matrix[j + i * sizeY] = matrix[j + i * sizeY].Ð¡onjugateNumber();
 			}
 		}
 	}
@@ -173,7 +173,7 @@ Matrix::Matrix(int* nums, int sizeX, int sizeY)
 		{
 			for (int j = 0; j < sizeY; j++)
 			{
-				cout << "Ââåäèòå " << j+1 << "-é ýëåìåíò äëÿ " << i+1 << "-é ñòðîêè: ";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ " << j+1 << "-Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ Ð´Ð»Ñ " << i+1 << "-Ð¹ ÑÑ‚Ñ€Ð¾ÐºÐ¸: ";
 				matrix[j + i * sizeY].SetComplexNum();
 			}
 		}

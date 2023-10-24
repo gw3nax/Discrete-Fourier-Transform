@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 using namespace std;
 
 class ComplexNum
@@ -11,7 +11,7 @@ public:
 	ComplexNum(double aIm, double aRe);
 	void SetComplexNum(double aIm, double aRe);
 	void SetComplexNum();
-	ComplexNum �onjugateNumber();
+	ComplexNum СonjugateNumber();
 	ComplexNum operator + (ComplexNum b);
 	bool operator == (ComplexNum b);
 	friend ostream& operator<<(ostream& os, const ComplexNum& complex);
